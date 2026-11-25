@@ -26,3 +26,18 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: p/javascript
+
+  gitleaks:
+    name: Deteccion de secretos con Gitleaks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ejecutar Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
